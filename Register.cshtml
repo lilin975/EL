@@ -1,0 +1,60 @@
+﻿
+@model 論文.Models.member
+@{
+    ViewBag.Title = "Register";
+}
+<body  style="background-color:#E4B295">
+    <h2 style="color:khaki"><b>註冊</b></h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <div>
+            @Html.LabelFor(model => model.name)
+            @Html.TextBoxFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.email)
+            @Html.TextBoxFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.pwd)
+            @Html.PasswordFor(model => model.pwd, new { id = "password-input" })
+            <input type="checkbox" id="show-password-checkbox" onchange="togglePasswordVisibility()">顯示密碼
+            @Html.ValidationMessageFor(model => model.pwd)
+        </div>
+
+        <script>
+            function togglePasswordVisibility() {
+                var passwordInput = document.getElementById("password-input");
+                var showPasswordCheckbox = document.getElementById("show-password-checkbox");
+
+                if (showPasswordCheckbox.checked) {
+                    passwordInput.type = "text";
+                } else {
+                    passwordInput.type = "password";
+                }
+            }
+        </script>
+
+
+
+
+        <input type="submit" value="註冊" />
+    }
+
+    @if (!String.IsNullOrEmpty(ViewBag.errorpwd))
+    {
+        <div>@ViewBag.errorpwd</div>
+    }
+
+    @if (!String.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div>@ViewBag.Message</div>
+    }
+</body>
